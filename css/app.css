@@ -1,0 +1,22 @@
+#app{
+    min-height: 100vh;
+    display:flex;
+    flex-flow: column;
+}
+header{
+    text-align: center;
+    min-height: 35vh;
+    background: var(--bs-success);
+    color: var(--bs-light);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+main{
+    flex: 1 1 auto;
+}
+footer{
+    background: var(--bs-dark);
+    color: var(--bs-light);
+    text-align: center;
+}
