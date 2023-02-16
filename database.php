@@ -72,11 +72,44 @@ class DB {
         }
         return "";
     }
+    public function AutoForm($form){
+        $inputs = explode(";", $form);
+        $method = "";
+        $action = "";
+        $inputs = [];
+        foreach (explode(';', $form) as $input){
+            $items = explode('|', $input);
+            switch ($items[0]){
+                case 'method':
+                    $method = $items[1];
+                    break;
+                case 'action':
+                    $action = $items[1];
+                    break;
+                case 'dropdown':
+                    $options = explode('>', $input)[1];
+                    $optStr = "";
+                    foreach ($options as $option){
+                        $vls = explode('=', $option); 
+                        $optStr.="<options value='$vls[1]'>$vls[1]</options>";
+                    }
+                    var_dump($optStr);
+                    break;
+                case 'submit':
+                    $inputs[count($inputs)] = "<input type='submit' class='btn btn-success' value='Send' name='send' />";
+                    break;
+                default:
+                    $inputs[count($inputs)] = "
+                        <div class='mb-3'>
+                            <label for='$items[1]' class='form-label'>$items[2]</label>
+                            <input type='$items[0]' name='$items[1]' class='form-control' />
+                        </div>
+                    ";
+                    break;
+            }
+        }
+        return "<form action='$action' method='$method' class='col-11 mx-auto'>".join($inputs, "")."</form>";
+    }
 }
-include('resources.php');
-
-
-
-
 
 ?>
